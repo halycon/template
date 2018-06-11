@@ -1,0 +1,1 @@
+sample boot reactive mvc project without cloud support.
