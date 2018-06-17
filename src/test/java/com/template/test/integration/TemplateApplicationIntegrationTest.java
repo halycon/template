@@ -27,10 +27,6 @@ public class TemplateApplicationIntegrationTest {
     @Autowired
     private TestRestTemplate testRestTemplate;
 
-    @Test
-    public void fetchAndCheckGitHubJobsFromService() {
-        assertEquals("test","test");
-    }
 
     @Test
     public void checkIfFetchGitHubJobsService_getJobsReturnsSomething() {
@@ -52,8 +48,4 @@ public class TemplateApplicationIntegrationTest {
         assertTrue(response.getBody().size()>0);
     }
 
-    @Test
-    public void echoTest() {
-        assertEquals("test","test");
-    }
 }

@@ -69,25 +69,6 @@ public class FetchGitHubJobsService implements IFetchJobsService {
         return response;
     }
 
-    private Flux<Job> convertJobEntityListToJobList(Flux<JobEntity> jobs) {
-
-        return jobs.map(jobEntity -> {
-            Job job = new Job();
-            job.setCompany(jobEntity.getCompany());
-            job.setCompany_logo(jobEntity.getCompany_logo());
-            job.setCompany_url(jobEntity.getCompany_url());
-            job.setDate(jobEntity.getDate());
-            job.setHow_to_apply(jobEntity.getHow_to_apply());
-            job.setDescription(jobEntity.getDescription());
-            job.setId(jobEntity.getId());
-            job.setLocation(jobEntity.getLocation());
-            job.setTitle(jobEntity.getTitle());
-            job.setType(jobEntity.getType());
-            job.setUrl(jobEntity.getUrl());
-            return job;
-        }).publish();
-    }
-
     private Flux<JobEntity> convertJobListToJobEntityList(Flux<Job> jobs) {
 
         return jobs.map(job -> {
@@ -119,17 +100,17 @@ public class FetchGitHubJobsService implements IFetchJobsService {
             fetchJobsMongoRepository.deleteAll(finalJobEntityList).subscribe(new Subscriber<Void>() {
                 @Override
                 public void onSubscribe(Subscription subscription) {
-
+                        throw new UnsupportedOperationException("Invalid Operation onSubscribe");
                 }
 
                 @Override
                 public void onNext(Void aVoid) {
-
+                        throw new UnsupportedOperationException("Invalid Operation onNext");
                 }
 
                 @Override
                 public void onError(Throwable throwable) {
-
+                        throw new UnsupportedOperationException("Invalid Operation onError");
                 }
 
                 @Override
