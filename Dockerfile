@@ -17,4 +17,4 @@ VOLUME /opt/template/logs
 # Launch the verticle
 WORKDIR $VERTICLE_HOME
 ENTRYPOINT ["sh", "-c"]
-CMD ["exec java -jar -Djava.security.egd=file:/dev/./urandom -Denvironment=live $VERTICLE_FILE "]
+CMD ["exec java -jar -Djava.security.egd=file:/dev/./urandom -Dspring.profiles.active=devel $VERTICLE_FILE "]

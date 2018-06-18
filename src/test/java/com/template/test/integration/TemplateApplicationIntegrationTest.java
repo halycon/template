@@ -1,6 +1,10 @@
 package com.template.test.integration;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.template.service.IFetchJobsService;
+import org.json.JSONArray;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +18,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 
@@ -27,7 +32,6 @@ public class TemplateApplicationIntegrationTest {
     @Autowired
     private TestRestTemplate testRestTemplate;
 
-
     @Test
     public void checkIfFetchGitHubJobsService_getJobsReturnsSomething() {
 
@@ -35,7 +39,7 @@ public class TemplateApplicationIntegrationTest {
                 getForEntity("/getJobs?cityName=new+york&description=python", List.class);
 
         assertEquals(HttpStatus.OK,response.getStatusCode());
-        assertTrue(response.getBody().size()>0);
+        assertNotNull("Should not throw an exception", new JSONArray(response.getBody()));
     }
 
     @Test
@@ -45,7 +49,7 @@ public class TemplateApplicationIntegrationTest {
                 getForEntity("/getJobs?cityName=new+york&description=python", List.class);
 
         assertEquals(HttpStatus.OK,response.getStatusCode());
-        assertTrue(response.getBody().size()>0);
+        assertNotNull("Should not throw an exception", new JSONArray(response.getBody()));
     }
 
 }

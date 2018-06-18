@@ -61,7 +61,7 @@ public class FetchGitHubJobsService implements IFetchJobsService {
 
         Flux<Job> response;
         if(jobs!=null){
-            Collections.sort(jobs, Comparator.comparing(Job::getCompany));
+            Collections.sort(jobs, Comparator.comparing(Job::getCompany,Comparator.nullsLast(Comparator.naturalOrder())));
             response = Flux.fromIterable(jobs);
             if (updateJobsOnRepository(response)) return Flux.empty();
         }else
@@ -96,35 +96,14 @@ public class FetchGitHubJobsService implements IFetchJobsService {
             Flux<JobEntity> jobEntityList;
             jobEntityList = convertJobListToJobEntityList(jobs);
             Flux<JobEntity> finalJobEntityList = jobEntityList;
-
-            fetchJobsMongoRepository.deleteAll(finalJobEntityList).subscribe(new Subscriber<Void>() {
-                @Override
-                public void onSubscribe(Subscription subscription) {
-                        throw new UnsupportedOperationException("Invalid Operation onSubscribe");
-                }
-
-                @Override
-                public void onNext(Void aVoid) {
-                        throw new UnsupportedOperationException("Invalid Operation onNext");
-                }
-
-                @Override
-                public void onError(Throwable throwable) {
-                        throw new UnsupportedOperationException("Invalid Operation onError");
-                }
-
-                @Override
-                public void onComplete() {
-                    fetchJobsMongoRepository.saveAll(finalJobEntityList).then().subscribe();
-                }
-            });
+            fetchJobsMongoRepository.saveAll(finalJobEntityList).then().subscribe();
 
         }
         return false;
     }
 
     public List<Job> getJobsFromGithubJobApi(String cityName, String description){
-        String url = "https://jobs.github.com//positions.json?location=" + cityName + "&description=" + description;
+        String url = "https://jobs.github.com/positions.json?location=" + cityName + "&description=" + description;
         logger.info("url :: {}",url);
         ResponseEntity<List<Job>> responseHttpGet = restTemplate.exchange(url,
                 HttpMethod.GET, null, parameterizedTypeReference);
