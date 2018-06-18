@@ -14,11 +14,12 @@ MongoDB install on local (or dont if docker installed)
 
 
 "maven install" for build
-java -Djava.security.egd=file:/dev/./urandom -Denvironment=devel jar target/template-0.0.1-SNAPSHOT.jar 
+java -Djava.security.egd=file:/dev/./urandom -Dspring.profiles.active=devel jar target/template-0.0.1-SNAPSHOT.jar 
 
 or 
 
 docker-compose build
+
 docker-compose up
 
 ## Testing
