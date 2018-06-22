@@ -7,7 +7,7 @@ services:
     container_name: template
     build: .
     volumes:
-          - /opt/template/logs:/opt/template/logs
+          - /devel/logs/template:/opt/template/logs
     ports:
       - 8081:8081
     depends_on:
